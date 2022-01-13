@@ -1,3 +1,5 @@
+.env.local
+
 /.bundle/
 /.yardoc
 /_yardoc/
