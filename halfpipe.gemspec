@@ -6,7 +6,7 @@ Gem::Specification.new do |spec|
   spec.authors = ["Justin Searls"]
   spec.email = ["searls@gmail.com"]
 
-  spec.summary = "A Pipedrive API client that probably doesn't do what you want"
+  spec.summary = "A Pipedrive client that doesn't do half of what you want"
   spec.homepage = "https://github.com/testdouble/halfpipe"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 3.0.0"

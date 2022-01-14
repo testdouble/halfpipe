@@ -14,15 +14,17 @@ class ConfigTest < UnitTest
 
     assert_equal "HAHABUSINESS", result.api_token
     assert_nil result.subdomain
+    refute result.debug
   end
 
-  def test_that_it_can_store_an_api_token_and_a_subdomain
-    Halfpipe.config(api_token: "HAHABUSINESS", subdomain: "memes")
+  def test_that_it_can_store_an_api_token_and_a_subdomain_and_debug_flag
+    Halfpipe.config(api_token: "HAHABUSINESS", subdomain: "memes", debug: true)
 
     result = Halfpipe.config
 
     assert_equal "HAHABUSINESS", result.api_token
     assert_equal "memes", result.subdomain
+    assert result.debug
   end
 
   def test_that_it_is_just_a_basic_mutable_instance
