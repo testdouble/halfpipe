@@ -15,7 +15,7 @@ module Halfpipe
 
       if rate_limited?(res)
         wait_time = res["x-ratelimit-reset"].to_i
-        put "Reached rate limit, sleeping #{wait_time}"
+        puts "Reached rate limit, sleeping #{wait_time}"
         sleep wait_time
         get(path, params: params, start: start)
       else
