@@ -13,8 +13,10 @@ module Halfpipe
       res = Net::HTTP.get_response(uri)
       json = parse_json(res)
 
-      if rate_limited?(res)
-        wait_time = res["x-ratelimit-reset"].to_i
+      if unauthorized?(res)
+        raise Error.new("Pipedrive API returned #{res.code} unauthorized. Verify your API token and subdomain?")
+      elsif rate_limited?(res)
+        wait_time = res["x-ratelimit-reset"].to_i + 1
         puts "Reached rate limit, sleeping #{wait_time}"
         sleep wait_time
         get(path, params: params, start: start)
@@ -79,8 +81,13 @@ module Halfpipe
         nil
       end
 
+      def unauthorized?(res)
+        res.code == "401"
+      end
+
       def rate_limited?(res)
-        res.code == "429" || res["x-ratelimit-remaining"].to_i < 1
+        res.code == "429" ||
+          (res.key?("x-ratelimit-remaining") && res["x-ratelimit-remaining"].to_i < 1)
       end
 
       def raise_failure_maybe!(res, json)
