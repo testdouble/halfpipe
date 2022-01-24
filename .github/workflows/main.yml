@@ -14,7 +14,6 @@ jobs:
     strategy:
       matrix:
         ruby:
-          - '3.0'
           - '3.1'
 
     steps:
@@ -25,4 +24,7 @@ jobs:
         ruby-version: ${{ matrix.ruby }}
         bundler-cache: true
     - name: Run the default task
+      env:
+        PIPEDRIVE_API_KEY: ${{ secrets.PIPEDRIVE_API_KEY }}
+        PIPEDRIVE_SUBDOMAIN: ${{ secrets.PIPEDRIVE_SUBDOMAIN }}
       run: bundle exec rake
